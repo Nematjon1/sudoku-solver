@@ -26,3 +26,39 @@ function fillpuzzle(data) {
   }
   return;
 }
+
+async function getSolved() {
+  const stuff = {"puzzle": textArea.value}
+  const data = await fetch("/api/solve", {
+    method: "POST",
+    headers: {
+      "Accept": "application/json",
+      "Content-type": "application/json"
+    },
+    body: JSON.stringify(stuff)
+  })
+  const parsed = await data.json();
+  if (parsed.error) {
+    errorMsg.innerHTML = `<code>${JSON.stringify(parsed, null, 2)}</code>`;
+    return
+  }
+  fillpuzzle(parsed.solution)
+}
+
+async function getChecked() {
+  const stuff = {"puzzle": textArea.value, "coordinate": coordInput.value, "value": valInput.value}
+    const data = await fetch("/api/check", {
+    method: "POST",
+    headers: {
+      "Accept": "application/json",
+      "Content-type": "application/json"
+    },
+    body: JSON.stringify(stuff)
+  })
+  const parsed = await data.json();
+  errorMsg.innerHTML = `<code>${JSON.stringify(parsed, null, 2)}</code>`;
+}
+
+
+document.getElementById("solve-button").addEventListener("click", getSolved)
+document.getElementById("check-button").addEventListener("click", getChecked)
