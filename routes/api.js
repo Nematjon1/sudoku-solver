@@ -54,4 +54,18 @@ module.exports = function (app) {
             res.send({ error: "Required field(s) missing" })
         }
     });
+    
+     app.route('/api/solve')
+        .post((req, res) => {
+            if (req.body.puzzle != null) {
+                const solution = solver.solve(req.body.puzzle);
+                if (solution.result) {
+                    res.json({ ...solution });
+                } else {
+                    res.status(400).send({ error: solution.error })
+                }
+            } else {
+                res.status(400).send({ error: 'Required field missing' })
+            }
+        });
  };
