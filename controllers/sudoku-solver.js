@@ -1,5 +1,6 @@
 class SudokuSolver {
 
+    // Validate input: if it is more than 81 chars and non numeric return false else return true
     validate(puzzleString) {
         let len = puzzleString.length;
         if (len !== 81) return { result: false, error: "Expected puzzle to be 81 characters long" };
