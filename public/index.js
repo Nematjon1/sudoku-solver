@@ -1,3 +1,6 @@
+// This file should be refactored
+
+// Global variables for DOM elements
 const textArea = document.getElementById("text-input");
 const coordInput = document.getElementById("coord");
 const valInput = document.getElementById("val");
